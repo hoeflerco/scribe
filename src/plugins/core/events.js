@@ -190,11 +190,7 @@ define([
         if (event.clipboardData && event.clipboardData.types.length > 0) {
           event.preventDefault();
 
-          if (Immutable.List(event.clipboardData.types).includes('text/html')) {
-            scribe.insertHTML(event.clipboardData.getData('text/html'));
-          } else {
-            scribe.insertPlainText(event.clipboardData.getData('text/plain'));
-          }
+          scribe.insertPlainText(event.clipboardData.getData('text/plain'));
         } else {
           /**
            * If the browser doesn't have `ClipboardEvent.clipboardData`, we run through a
@@ -226,7 +222,7 @@ define([
 
           // Wait for the paste to happen (next loop?)
           setTimeout(function () {
-            var data = bin.innerHTML;
+            var data = bin.textContent;
             bin.parentNode.removeChild(bin);
 
             // Restore the caret position
